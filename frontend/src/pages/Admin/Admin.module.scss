@@ -1,0 +1,14 @@
+@use '../../scss/' as *;
+
+.table {
+    margin-top: 30px;
+    width: 100%;
+
+    div[class*='ant-select-selector'] {
+        min-width: 90px;
+    }
+
+    div[class*='ant-table-pagination'] {
+        display: none !important;
+    }
+}

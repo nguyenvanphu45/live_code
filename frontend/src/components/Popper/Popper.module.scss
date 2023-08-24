@@ -1,0 +1,10 @@
+@use '../../scss/' as *;
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 30px;
+    background-color: $bg-color-dark-2;
+    border-radius: $radius-1;
+}

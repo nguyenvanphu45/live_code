@@ -1,0 +1,35 @@
+@use '../../../scss/' as *;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 57px;
+
+    .user {
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .icon-user {
+            font-size: 22px;
+            margin-right: 6px;
+        }
+
+        .icon-down {
+            font-size: 8px;
+            margin-left: 10px;
+        }
+
+        &:hover .icon-down {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 598px) {
+    .header {
+        margin: 0 18px 38px;
+    }
+}

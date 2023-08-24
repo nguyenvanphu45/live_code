@@ -1,0 +1,65 @@
+@use '../../scss/' as *;
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+
+    &__content {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        h4 {
+            font-size: 16px;
+        }
+
+        &--topic {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+        }
+
+        &--example {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            h4 {
+                margin-bottom: 10px;
+            }
+
+            pre {
+                border-left: 2px solid $border-color;
+                padding-left: 12px;
+                white-space: pre-line;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+
+    &__code {
+        width: 60%;
+
+        &--btn {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: end;
+            
+            button {
+                padding: 20px 30px;
+                color: $white-color;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+    }
+}
