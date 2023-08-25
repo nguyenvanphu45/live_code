@@ -60,5 +60,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://10.10.23.32:5000"
+    "proxy": "http://10.20.20.56:5000"
 }

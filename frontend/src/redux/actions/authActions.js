@@ -8,7 +8,7 @@ export const dispatchLogin = (user) => {
 };
 
 export const fetchUser = async (id, axiosJWT) => {
-    const res = await axiosJWT.get('http://10.10.23.32:5000/users');
+    const res = await axiosJWT.get('http://10.20.20.56:5000/users');
 
     return res;
 };
