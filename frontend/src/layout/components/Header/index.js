@@ -35,16 +35,6 @@ function Header() {
 
     const userMenu = [
         {
-            icon: <FaUserCircle />,
-            title: 'My profile',
-            to: `/profile`,
-        },
-        {
-            icon: <BiSolidGroup />,
-            title: 'Group chat',
-            to: '/chat',
-        },
-        {
             icon: <TbLogout />,
             title: 'Logout',
             to: '/',
@@ -64,7 +54,7 @@ function Header() {
             {isLogged ? (
                 <Menu items={userMenu}>
                     <div className={cx('user')}>
-                        {user.email}
+                        {user.name}
                         <BsCaretDownFill className={cx('icon-down')} />
                     </div>
                 </Menu>

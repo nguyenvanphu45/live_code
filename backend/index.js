@@ -23,14 +23,14 @@ app.use(bodyParser.json({ limit: '500mb' }));
 
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: 'http://10.10.23.32:3000',
         credentials: true,
         optionSuccessStatus: 200,
     }),
 );
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'http://10.10.23.32:3000');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -48,13 +48,13 @@ app.use(express.json());
 route(app);
 
 const server = app.listen(PORT, () => {
-    console.log(`Server running on port: http://localhost:${PORT}`);
+    console.log(`Server running on port: http://10.10.23.32:${PORT}`);
 });
 
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
-        origin: 'http://localhost:3000',
+        origin: 'http://10.10.23.32:3000',
     },
 });
 

@@ -59,7 +59,6 @@ function LoginPage() {
             <form className={cx('form')} onSubmit={handleSubmit}>
                 <img src={imageSvg.logo} alt="" />
                 <div className={cx('title')}>
-                    <h3>Login</h3>
                 </div>
                 <div className={cx('input')}>
                     <MdMail className={cx('input-icon')} />
@@ -79,33 +78,12 @@ function LoginPage() {
                 {success && showSuccessMsg(success)}
                 <button className={cx('btn')}>Login</button>
                 <div className={cx('social')}>
-                    <span>or continue with these social profile</span>
-                    <div className={cx('icons')}>
-                        <span>
-                            <BsGoogle />
-                        </span>
-                        <span>
-                            <FaFacebookSquare />
-                        </span>
-                        <span>
-                            <BsTwitter />
-                        </span>
-                        <span>
-                            <BsGithub />
-                        </span>
-                    </div>
+                    
                 </div>
                 <p className={cx('account')}>
                     Don’t have an account yet? <Link to="/register">Register</Link>
                 </p>
             </form>
-            <div className={cx('create-by')}>
-                <p className={cx('username')}>
-                    created by <span>username</span>
-                </p>
-                <p className={cx('name')}>Your name</p>
-                <p>devChallenges.io</p>
-            </div>
         </div>
     );
 }

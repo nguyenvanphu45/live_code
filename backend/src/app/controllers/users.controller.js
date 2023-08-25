@@ -21,7 +21,20 @@ const usersController = {
             console.log(error)
             return res.status(500).json({ msg: error.message });
         }
-    }
+    },
+
+    // [PUT] /users/update/:id
+    updateUser: async (req, res) => {
+        try {
+            let id = req.params.id;
+            let data = req.body;
+            let response = await usersService.updateUser(id, data);
+            res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ msg: error.message });
+        }
+    },
 };
 
 module.exports = usersController;

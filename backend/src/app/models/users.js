@@ -31,11 +31,14 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-        // code: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: 'Code',
-        //     default: null
-        // },
+        code: {
+            type: [{ content: { type: String }, challengeId: { type: String } }],
+            default: null,
+        },
+        status: {
+            type: String,
+            default: 'Waiting',
+        },
     },
     { timestamps: true },
 );

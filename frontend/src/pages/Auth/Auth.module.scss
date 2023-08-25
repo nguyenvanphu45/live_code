@@ -11,10 +11,17 @@
 
     .form {
         width: 474px;
-        min-height: 544px;
+        // min-height: 544px;
         padding: 48px 58px 58px;
         border: 1px solid $border-color;
         border-radius: 24px;
+
+        img {
+            width: 200px;
+            height: 43px;
+            display: flex;
+            margin: auto;
+        }
 
         .title {
             margin: 22px 0 27px;
@@ -56,8 +63,6 @@
                 font-size: 16px;
                 font-weight: $weight-normal;
                 letter-spacing: $letter-spacing;
-
-
             }
         }
 
@@ -70,6 +75,7 @@
             color: $white-color;
             letter-spacing: $letter-spacing;
             margin-top: 8px;
+            background-color: #A72AA3 !important;
         }
 
         .social {
@@ -120,7 +126,7 @@
             letter-spacing: -0.49px;
 
             a {
-                color: #2D9CDB;
+                color: #A72AA3;
             }
         }
     }

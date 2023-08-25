@@ -4,6 +4,7 @@ import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAxios } from '../../utils/api';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -12,8 +13,6 @@ function AdminPage() {
     let axiosJWT = createAxios();
 
     const [allUsers, setAllUsers] = useState([]);
-    const [allChallenge, setAllChallenge] = useState([]);
-    console.log(allChallenge)
 
     // const filter = allChallenge.filter()
 
@@ -30,38 +29,39 @@ function AdminPage() {
         fetchApi();
     }, []);
 
-    useEffect(() => {
-        const fetchApi = async () => {
-            try {
-                const res = await axiosJWT.get('/code')
-                setAllChallenge(res.data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        fetchApi();
-    }, [])
+    const handleChange = async (value, id) => {
+        await axiosJWT.put(`/users/update/${id}`, {
+            status: value,
+        });
+    };
 
     const columns = [
         {
             title: 'Name',
-            dataIndex: 'email',
-            key: 'email',
+            dataIndex: 'name',
+            key: 'name',
         },
         {
             title: 'Challenge',
             dataIndex: 'challenge',
             key: 'challenge',
-            render: () => {
+            render: (_, { code }) => {
                 return (
                     <>
-                        {allChallenge.map((clg) => {
+                        {code.map((clg, index) => {
+                            let length = code.length - 1
+                            if (!clg.content || !clg.challengeId) {
+                                return null;
+                            }
                             return (
-                                <a key={clg}>
-                                    {clg.sender.email}
-                                    {/* {clg === challenge[challenge.length - 1] ? '' : ','}{' '} */}
-                                </a>
+                                <Link
+                                    key={clg}
+                                    to={`/admin/challenge/${clg.challengeId}`}
+                                    state={{ code: clg.content }}
+                                >
+                                    challenge {index + 1}
+                                    {clg === code[length] ? '' : ', '}
+                                </Link>
                             );
                         })}
                     </>
@@ -71,13 +71,13 @@ function AdminPage() {
         {
             title: 'Status',
             key: 'status',
-            render: () => {
-                const status = ['Pass', 'Waiting', 'Failed'];
+            render: (_, { _id, status }) => {
+                const stt = ['Waiting', 'Pass', 'Failed'];
                 return (
                     <div className={cx('table__select')}>
-                        <Select defaultValue="Waiting">
-                            {status.map((stt) => (
-                                <Select.Option value={stt}>{stt}</Select.Option>
+                        <Select defaultValue={status} onChange={(value) => handleChange(value, _id)}>
+                            {stt.map((s) => (
+                                <Select.Option value={s}>{s}</Select.Option>
                             ))}
                         </Select>
                     </div>

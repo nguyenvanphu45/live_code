@@ -3,7 +3,8 @@ const routes = {
     login: '/login',
     register: '/register',
     challenge: '/challenge/:id',
-    admin: '/admin'
+    admin: '/admin',
+    code: '/admin/challenge/:id'
 };
 
 export default routes;

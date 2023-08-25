@@ -4,6 +4,9 @@ import classNames from 'classnames/bind';
 import Editor from '@monaco-editor/react';
 import { useLocation, useParams } from 'react-router-dom';
 import { createAxios } from '../../utils/api';
+import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 
@@ -31,24 +34,50 @@ const cx = classNames.bind(styles);
 
 function ChallengePage() {
     const [code, setCode] = useState('');
+    const user = useSelector((state) => state.auth.user);
+    const [challenges, setChallenges] = useState([]);
 
     // const [challenge, setChallenge] = useState([]);
-    const location = useLocation();
-    const challenge = location.state.data;
 
     const id = useParams();
 
     let axiosJWT = createAxios();
 
+    useEffect(() => {
+        const fetchApi = async () => {
+            try {
+                const res = await axiosJWT.get(`/challenge/${id.id}`);
+                setChallenges([res.data.challenge]);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchApi();
+    }, []);
+
+
     const handleSave = async () => {
         if (!code) return;
 
         try {
-            const res = await axiosJWT.post(`/code`, {
+            const res = await axiosJWT.put(`/users/update/${user._id}`, {
                 content: code,
-                challengeId: id.id
+                challengeId: id.id,
             });
-            console.log(res);
+
+            toast.success('Save code success!', {
+                position: 'top-center',
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+            
+            // console.log(res);
         } catch (err) {
             console.log(err);
             // err.response.data.message && setUserUpdate({ ...user });
@@ -59,34 +88,33 @@ function ChallengePage() {
         <div className={cx('wrapper')}>
             <div className={cx('wrapper__content')}>
                 <div className={cx('wrapper__content--topic')}>
-                    {challenge.topic.map((clg, index) => (
-                        <h4 key={index}>{clg}</h4>
-                    ))}
+                    {challenges.length && challenges[0].topic.map((clg, index) => <h4 key={index}>{clg}</h4>)}
                 </div>
                 <div className={cx('wrapper__content--example')}>
-                    {challenge.example.map((exp, index) => {
-                        return (
-                            <div>
-                                <h4>Example {index + 1}:</h4>
-                                <pre>
-                                    <p>
-                                        <strong>Input: </strong>
-                                        {exp.input}
-                                    </p>
-                                    <p>
-                                        <strong>Output: </strong>
-                                        {exp.output}
-                                    </p>
-                                    {exp.explanation && (
+                    {challenges.length &&
+                        challenges[0].example.map((exp, index) => {
+                            return (
+                                <div>
+                                    <h4>Example {index + 1}:</h4>
+                                    <pre>
                                         <p>
-                                            <strong>Explanation: </strong>
-                                            <span dangerouslySetInnerHTML={{ __html: exp.explanation }}></span>
+                                            <strong>Input: </strong>
+                                            {exp.input}
                                         </p>
-                                    )}
-                                </pre>
-                            </div>
-                        );
-                    })}
+                                        <p>
+                                            <strong>Output: </strong>
+                                            {exp.output}
+                                        </p>
+                                        {exp.explanation && (
+                                            <p>
+                                                <strong>Explanation: </strong>
+                                                <span dangerouslySetInnerHTML={{ __html: exp.explanation }}></span>
+                                            </p>
+                                        )}
+                                    </pre>
+                                </div>
+                            );
+                        })}
                 </div>
             </div>
             <div className={cx('wrapper__code')}>
@@ -95,6 +123,18 @@ function ChallengePage() {
                     defaultValue="// some comment"
                     value={code}
                     onChange={(newValue) => setCode(newValue)}
+                />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
                 />
                 <div className={cx('wrapper__code--btn')}>
                     <button onClick={handleSave}>Save code</button>

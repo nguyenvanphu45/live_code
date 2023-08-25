@@ -46,7 +46,7 @@ const authController = {
     // [POST] /auth/register
     register: async (req, res) => {
         try {
-            const { email, password } = req.body;
+            const { email, name, password } = req.body;
 
             const findEmail = await User.findOne({ email });
 
@@ -58,6 +58,7 @@ const authController = {
 
             let newUser = await new User({
                 email: email,
+                name: name,
                 password: password
             });
 

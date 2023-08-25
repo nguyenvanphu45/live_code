@@ -33,6 +33,38 @@ const usersService = {
             }
         });
     },
+    // update code
+    updateUser: (id, data) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { content, challengeId, status, ...rest } = data;
+
+                let newCode = {
+                    content: content,
+                    challengeId: challengeId,
+                };
+
+                const updatedChallenge = await User.findByIdAndUpdate(
+                    id,
+                    {
+                        $push: {
+                            code: newCode,
+                        },
+                        $set: { status: status },
+                        ...rest,
+                    },
+                    { new: true },
+                );
+
+                resolve({
+                    message: 'Update success!',
+                    user: updatedChallenge,
+                });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    },
 };
 
 module.exports = usersService;
