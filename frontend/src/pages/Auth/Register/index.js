@@ -50,8 +50,6 @@ function RegisterPage() {
         }
     };
 
-    console.log('error: ', err)
-
     return (
         <div className={cx('wrapper')}>
             <form className={cx('form', 'form-regis')} onSubmit={handleSubmit}>
