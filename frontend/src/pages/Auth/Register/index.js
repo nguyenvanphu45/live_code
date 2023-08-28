@@ -31,6 +31,9 @@ function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!name) {
+            return setUser({ ...user, err: 'Please fill in all fields!', success: '' });
+        }
         try {
             const res = await axios.post(
                 '/auth/register',
