@@ -12,3 +12,16 @@
         display: none !important;
     }
 }
+
+.challenge {
+    margin-right: 12px;
+    background-color: #A72AA3;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 8px;
+
+    &:hover {
+        color: #fff;
+        opacity: .8;
+    }
+}

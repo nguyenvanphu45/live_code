@@ -9,18 +9,24 @@ import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
 function HomePage() {
+    const [ch, setCh] = useState([]);
     const [randomElements, setRandomElements] = useState([null, null]);
     const user = useSelector((state) => state.auth.user);
     let axiosJWT = createAxios();
     const navigate = useNavigate();
 
     const getRandomObject = (array) => {
-        const randomIndex1 = Math.floor(Math.random() * array.length);
-        let randomIndex2 = Math.floor(Math.random() * array.length);
-        while (randomIndex1 === randomIndex2) {
-            randomIndex2 = Math.floor(Math.random() * array.length);
+        const randomIndices = [];
+        let i = 0;
+        while (i < 4) {
+            const randomIndex = Math.floor(Math.random() * array.length);
+            if (!randomIndices.includes(randomIndex)) {
+                randomIndices.push(randomIndex);
+                i++;
+            }
         }
-        const randomElements = [array[randomIndex1], array[randomIndex2]];
+
+        const randomElements = randomIndices.map((index) => array[index]);
         setRandomElements(randomElements);
     };
 
@@ -32,6 +38,7 @@ function HomePage() {
         const fetchApi = async () => {
             try {
                 const res = await axiosJWT.get('/challenge');
+                setCh(res.data.challenge);
                 getRandomObject(res.data.challenge);
             } catch (error) {
                 console.log(error);
@@ -61,7 +68,7 @@ function HomePage() {
                                 <div className={cx('body__info')}>
                                     <div className={cx('duration')}>
                                         <img src={imageSvg.clock} alt="" />
-                                        <span>30 min</span>
+                                        <span>15 min</span>
                                     </div>
                                     <button className={cx('btn')}>
                                         <Link

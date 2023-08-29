@@ -58,9 +58,9 @@ function AdminPage() {
                                     key={clg}
                                     to={`/admin/challenge/${clg.challengeId}`}
                                     state={{ code: clg.content }}
+                                    className={cx('challenge')}
                                 >
-                                    challenge {index + 1}
-                                    {clg === code[length] ? '' : ', '}
+                                    challenge {index + 1}{" "}
                                 </Link>
                             );
                         })}
