@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
 function HomePage() {
-    const [ch, setCh] = useState([]);
     const [randomElements, setRandomElements] = useState([null, null]);
     const user = useSelector((state) => state.auth.user);
     let axiosJWT = createAxios();
@@ -18,7 +17,7 @@ function HomePage() {
     const getRandomObject = (array) => {
         const randomIndices = [];
         let i = 0;
-        while (i < 4) {
+        while (i < 2) {
             const randomIndex = Math.floor(Math.random() * array.length);
             if (!randomIndices.includes(randomIndex)) {
                 randomIndices.push(randomIndex);
@@ -38,7 +37,6 @@ function HomePage() {
         const fetchApi = async () => {
             try {
                 const res = await axiosJWT.get('/challenge');
-                setCh(res.data.challenge);
                 getRandomObject(res.data.challenge);
             } catch (error) {
                 console.log(error);
@@ -68,7 +66,7 @@ function HomePage() {
                                 <div className={cx('body__info')}>
                                     <div className={cx('duration')}>
                                         <img src={imageSvg.clock} alt="" />
-                                        <span>15 min</span>
+                                        <span>20 min</span>
                                     </div>
                                     <button className={cx('btn')}>
                                         <Link
