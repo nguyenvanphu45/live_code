@@ -23,14 +23,14 @@ app.use(bodyParser.json({ limit: '500mb' }));
 
 app.use(
     cors({
-        origin: 'https://napatest.napaglobal.com:3100',
+        origin: 'http://10.20.20.56:3100',
         credentials: true,
         optionSuccessStatus: 200,
     }),
 );
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'https://napatest.napaglobal.com:3000');
+    res.header('Access-Control-Allow-Origin', 'http://10.20.20.56:3000');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -48,5 +48,5 @@ app.use(express.json());
 route(app);
 
 app.listen(PORT, () => {
-    console.log(`Server running on port: https://napatest.napaglobal.com:${PORT}`);
+    console.log(`Server running on port: http://10.20.20.56:${PORT}`);
 });
