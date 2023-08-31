@@ -7,5 +7,6 @@ const usersController = require('../app/controllers/users.controller');
 router.get('/:id', middleware.verifyToken, usersController.fineOne);
 router.get('/', middleware.verifyTokenAdmin, usersController.findAllUser);
 router.put('/update/:id', middleware.verifyToken, usersController.updateUser);
+router.put('/update/status/:id', middleware.verifyToken, usersController.updateStatusUser);
 
 module.exports = router;

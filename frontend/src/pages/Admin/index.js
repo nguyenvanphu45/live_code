@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Select, Table } from 'antd';
 import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { createAxios } from '../../utils/api';
 import { Link } from 'react-router-dom';
 
@@ -13,8 +13,6 @@ function AdminPage() {
     let axiosJWT = createAxios();
 
     const [allUsers, setAllUsers] = useState([]);
-
-    // const filter = allChallenge.filter()
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -30,7 +28,7 @@ function AdminPage() {
     }, []);
 
     const handleChange = async (value, id) => {
-        await axiosJWT.put(`/users/update/${id}`, {
+        await axiosJWT.put(`/users/update/status/${id}`, {
             status: value,
         });
     };
@@ -49,10 +47,6 @@ function AdminPage() {
                 return (
                     <>
                         {code.map((clg, index) => {
-                            let length = code.length - 1
-                            if (!clg.content || !clg.challengeId) {
-                                return null;
-                            }
                             return (
                                 <Link
                                     key={clg}
@@ -60,7 +54,7 @@ function AdminPage() {
                                     state={{ code: clg.content }}
                                     className={cx('challenge')}
                                 >
-                                    challenge {index + 1}{" "}
+                                    challenge {index + 1}
                                 </Link>
                             );
                         })}
@@ -75,7 +69,7 @@ function AdminPage() {
                 const stt = ['Waiting', 'Pass', 'Failed'];
                 return (
                     <div className={cx('table__select')}>
-                        <Select defaultValue={status} onChange={(value) => handleChange(value, _id)}>
+                        <Select defaultValue={status} key={_id} onChange={(value) => handleChange(value, _id)}>
                             {stt.map((s) => (
                                 <Select.Option value={s}>{s}</Select.Option>
                             ))}
@@ -94,7 +88,10 @@ function AdminPage() {
                 <>
                     <h1>List User</h1>
                     <div className={cx('table')}>
-                        <Table columns={columns} dataSource={allUsers} />
+                        <Table
+                            columns={columns}
+                            dataSource={allUsers}
+                        />
                     </div>
                 </>
             )}

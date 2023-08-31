@@ -39,17 +39,44 @@ const usersService = {
             try {
                 const { content, challengeId, status, ...rest } = data;
 
-                let newCode = {
-                    content: content,
-                    challengeId: challengeId,
-                };
+                const updatedChallenge = await User.findOneAndUpdate(
+                    { _id: id, 'code.challengeId': challengeId },
+                    { $set: { 'code.$.content': content } },
+                    { new: true },
+                );
 
-                const updatedChallenge = await User.findByIdAndUpdate(
-                    id,
-                    {
+                if (!updatedChallenge) {
+                    const newCode = {
+                        content: content,
+                        challengeId: challengeId,
+                    };
+                    await User.findByIdAndUpdate(id, {
                         $push: {
                             code: newCode,
                         },
+                        $set: { status: status },
+                        ...rest,
+                    });
+                }
+
+                resolve({
+                    message: 'Update success!',
+                    user: updatedChallenge,
+                });
+            } catch (e) {
+                reject(e);
+            }
+        });
+    },
+    // update status
+    updateStatusUser: (id, data) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { status, ...rest } = data;
+
+                const updatedStatus = await User.findByIdAndUpdate(
+                    id,
+                    {
                         $set: { status: status },
                         ...rest,
                     },
@@ -58,7 +85,7 @@ const usersService = {
 
                 resolve({
                     message: 'Update success!',
-                    user: updatedChallenge,
+                    user: updatedStatus,
                 });
             } catch (e) {
                 reject(e);

@@ -33,7 +33,10 @@ function AdminChallenge() {
         <div className={cx('wrapper')}>
             <div className={cx('wrapper__content')}>
                 <div className={cx('wrapper__content--topic')}>
-                    {challenges.length && challenges[0].topic.map((clg, index) => <h4 key={index}>{clg}</h4>)}
+                    {challenges.length &&
+                        challenges[0].topic.map((clg, index) => (
+                            <h4 key={index} dangerouslySetInnerHTML={{ __html: clg }}></h4>
+                        ))}
                 </div>
                 <div className={cx('wrapper__content--example')}>
                     {challenges.length &&
@@ -44,7 +47,7 @@ function AdminChallenge() {
                                     <pre>
                                         <p>
                                             <strong>Input: </strong>
-                                            {exp.input}
+                                            <span dangerouslySetInnerHTML={{ __html: exp.input }}></span>
                                         </p>
                                         <p>
                                             <strong>Output: </strong>
