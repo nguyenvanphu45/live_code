@@ -20,7 +20,7 @@ function SideBar({ children }) {
 
     const logout = async () => {
         try {
-            await axiosJWT.post('http://napatest.napaglobal.com:5000/auth/logout', user._id, {
+            await axiosJWT.post('https://napatest.napaglobal.com:5000/auth/logout', user._id, {
                 withCredentials: true,
             });
             localStorage.removeItem('token');

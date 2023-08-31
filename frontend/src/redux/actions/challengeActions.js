@@ -1,7 +1,7 @@
 import ACTIONS from '.';
 
 export const fetchChallenge = async (id, axiosJWT) => {
-    const res = await axiosJWT.get('http://napatest.napaglobal.com:5000/challenge');
+    const res = await axiosJWT.get('https://napatest.napaglobal.com:5000/challenge');
 
     return res;
 };

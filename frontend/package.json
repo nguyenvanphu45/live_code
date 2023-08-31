@@ -60,5 +60,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://napatest.napaglobal.com:5000"
+    "proxy": "https://napatest.napaglobal.com:5000"
 }
