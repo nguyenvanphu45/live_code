@@ -8,7 +8,7 @@ export const dispatchLogin = (user) => {
 };
 
 export const fetchUser = async (id, axiosJWT) => {
-    const res = await axiosJWT.get('http://napatest.napaglobal.com:5000/users');
+    const res = await axiosJWT.get('https://napatest.napaglobal.com:5000/users');
 
     return res;
 };
