@@ -21,10 +21,10 @@ const usersService = {
             }
         });
     },
-    findAllUser: (admin) => {
+    findAllUser: () => {
         return new Promise(async (resolve, reject) => {
             try {
-                let user = await User.find({ _id: { $ne: admin } }).populate('code');
+                let user = await User.find({ role: 0 }).populate('code');
                 resolve({
                     user: user,
                 });

@@ -30,7 +30,7 @@ function HomePage() {
     };
 
     useEffect(() => {
-        if (user.role === 1) {
+        if (user.role !== 0) {
             navigate('/admin');
         }
 

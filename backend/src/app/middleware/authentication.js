@@ -25,7 +25,7 @@ const middlewareController = {
     verifyTokenAdmin: (req, res, next) => {
         middlewareController.verifyToken(req, res, async () => {
             const user = await User.findOne({ _id: req.user.id });
-            if (user.role !== 1) {
+            if (user.role === 0) {
                 return res.status(403).json({ message: 'Admin resources access denied.' });
             }
 

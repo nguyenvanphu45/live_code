@@ -4,17 +4,24 @@ import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import { createAxios } from '../../utils/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function AdminPage() {
     const user = useSelector((state) => state.auth.user);
+
+    const navigate = useNavigate();
     let axiosJWT = createAxios();
 
     const [allUsers, setAllUsers] = useState([]);
+    const sortedUsers = allUsers.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
     useEffect(() => {
+        if (user.role === 0) {
+            navigate('/');
+        }
+
         const fetchApi = async () => {
             try {
                 const res = await axiosJWT.get('/users');
@@ -28,9 +35,11 @@ function AdminPage() {
     }, []);
 
     const handleChange = async (value, id) => {
-        await axiosJWT.put(`/users/update/status/${id}`, {
-            status: value,
-        });
+        if (user.role === 1) {
+            await axiosJWT.put(`/users/update/status/${id}`, {
+                status: value,
+            });
+        }
     };
 
     const columns = [
@@ -82,19 +91,17 @@ function AdminPage() {
 
     return (
         <>
-            {user.role !== 1 ? (
-                <></>
-            ) : (
-                <>
-                    <h1>List User</h1>
-                    <div className={cx('table')}>
-                        <Table
-                            columns={columns}
-                            dataSource={allUsers}
-                        />
-                    </div>
-                </>
-            )}
+            <h1>List User</h1>
+            <div className={cx('table')}>
+                <Table
+                    defaultSort={{
+                        prop: 'createdAt',
+                        order: 'descending',
+                    }}
+                    columns={columns}
+                    dataSource={sortedUsers}
+                />
+            </div>
         </>
     );
 }

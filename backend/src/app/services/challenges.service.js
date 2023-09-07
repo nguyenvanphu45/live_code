@@ -1,8 +1,7 @@
 const Challenge = require('../models/challenge');
-const mongooseSimpleRandom = require('mongoose-simple-random');
 
 const challengesService = {
-    findOne: (id) => {
+    findChallenge: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
                 const challenge = await Challenge.findById(id);
@@ -24,11 +23,7 @@ const challengesService = {
     findAll: () => {
         return new Promise(async (resolve, reject) => {
             try {
-                // let query = Challenge.find({}).skip(10).limit(2);
-                // let challenge = await query.exec();
-
-                // const randomChallenges = mongooseSimpleRandom.shuffle(challenge);
-                let challenge = await Challenge.find()
+                let challenge = await Challenge.find();
 
                 resolve({
                     challenge: challenge,

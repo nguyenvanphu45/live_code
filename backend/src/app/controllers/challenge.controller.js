@@ -3,7 +3,7 @@ const challengesService = require('../services/challenges.service')
 const challengeController = {
     findChallenge: async (req, res) => {
         try {
-            let response = await challengesService.findOne(req.params.id);
+            let response = await challengesService.findChallenge(req.params.id);
             res.status(200).json(response);
         } catch (error) {
             console.log(error);

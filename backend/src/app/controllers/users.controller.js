@@ -15,7 +15,7 @@ const usersController = {
     // [GET] /users/
     findAllUser: async (req, res) => {
         try {
-            let response = await usersService.findAllUser(req.user.id);
+            let response = await usersService.findAllUser();
             res.status(200).json(response);
         } catch (error) {
             console.log(error);
